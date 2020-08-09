@@ -19,8 +19,10 @@ const createFileStructure = (solutionsPath, fileStructure) => {
 				// If there is an error other than the file doesn't exist, throw it
 				if (err && err.code != 'ENOENT') throw err;
 
+				const code = fileStructure[rank][fileName];
+				
 				// If current solution does not exist or is different then create/overwrite it respectively
-				if (data != fileStructure[rank][fileName]) {
+				if (data != code) {
 					const message = fileName + (err ? ' created.' : ' overwritten.');
 
 					fs.writeFile(filePath, code, 'utf8', (err) => {

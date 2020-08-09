@@ -1,18 +1,49 @@
-const languageToExtension = { java_script: '.js', ruby: '.rb', python: '.py' };
 const snakeCase = str => str && str.match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g).map(x => x.toLowerCase()).join('_');
-const fileName = solution => snakeCase(solution.title) + languageToExtension[snakeCase(solution.language)];
+
+const languageToExtension = {
+  "C": ".c",
+  "C#": ".cs",
+  "C++": ".cpp",
+  "Clojure": ".clj",
+  "CoffeeScript": ".coffee",
+  "Coq": ".coq",
+  "Crystal": ".cr",
+  "Dart": ".dart",
+  "Elixir": ".ex",
+  "F#": ".fs",
+  "Go": ".go",
+  "Groovy": ".groovy",
+  "Haskell": ".hs",
+  "Java": ".java",
+  "JavaScript": ".js",
+  "Kotlin": ".kt",
+  "Lean": ".lean",
+  "Lua": ".lua",
+  "PHP": ".php",
+  "Python": ".py",
+  "Racket": ".rkt",
+  "Ruby": ".rb",
+  "Rust": ".rs",
+  "Scala": ".scala",
+  "Shell": ".sh",
+  "SQL": ".sql",
+  "Swift": ".swift",
+  "TypeScript": ".ts"
+};
+
+const fileName = solution => snakeCase(solution.title) + languageToExtension[solution.language];
 
 const extractSolutions = () => {
 	const solutions = [];
 
-	[...document.querySelectorAll('.list-item.solutions')].map((kata) => {
+	[...document.querySelectorAll('.list-item.solutions')].forEach((kata) => {
 		const [rank, title] = kata.querySelector('.item-title').innerText.split('\n');
 
 		[...kata.querySelectorAll('h6 + .markdown')].forEach((solution) => {
-			const language = solution.previousSibling.innerText;
+			const language = solution.previousSibling.innerText.slice(0, -1);
 			const code = solution.innerText;
 
-			solutions.push({ title, rank, language, code })
+			solutions.push({ title, rank, language, code });
 		});
 	});
 
@@ -31,14 +62,14 @@ const solutionsToFileStructure = (solutions) => {
 }
 
 const copyToClipboard = (text) => {
-  var dummy = document.createElement("textarea");
-  document.body.appendChild(dummy);
-  dummy.value = text;
-  dummy.select();
-  document.execCommand("copy");
-  document.body.removeChild(dummy);
+	var dummy = document.createElement("textarea");
+	document.body.appendChild(dummy);
+	dummy.value = text;
+	dummy.select();
+	document.execCommand("copy");
+	document.body.removeChild(dummy);
 
-  console.log("Content copied to clipboard.")
+	console.log("Content copied to clipboard.");
 };
 
 const solutions = extractSolutions();

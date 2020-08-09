@@ -20,7 +20,7 @@ const createFileStructure = (solutionsPath, fileStructure) => {
 				if (err && err.code != 'ENOENT') throw err;
 
 				const code = fileStructure[rank][fileName];
-				
+
 				// If current solution does not exist or is different then create/overwrite it respectively
 				if (data != code) {
 					const message = fileName + (err ? ' created.' : ' overwritten.');
@@ -41,5 +41,3 @@ const fileStructure = parseFile('./extracted.json');
 // Change this variable if you wish for you solutions to be stored elsewhere
 const solutionsPath = '../codewars_solutions';
 createFileStructure(solutionsPath, fileStructure);
-
-console.log("Parsing complete.");

@@ -1,26 +1,43 @@
-// Change this if you wish to store your solutions elsewhere
-const solutionsPath = '../codewars_solutions';
-
 const fs = require('fs');
 
-fs.mkdir(solutionsPath, (err) => {
-	if (!err) console.log(`Directory: ${solutionsPath} successfully created.`)
-})
+const parseFile = filePath => JSON.parse(fs.readFileSync(filePath, { encoding: 'utf-8'}));
 
-const fileStructure = JSON.parse(fs.readFileSync('./extracted.json', { encoding: 'utf-8'}));
+const createFileStructure = (solutionsPath, fileStructure) => {
+	// Create solutions directory
+	fs.mkdirSync(solutionsPath, { recursive: true });
 
-Object.keys(fileStructure).forEach((rank) => {
-	const dirPath = [solutionsPath, rank].join('/')
-	fs.mkdir(dirPath, (err) => {
-	  if (!err) console.log(`Directory: ${rank} successfully created.`);
+	Object.keys(fileStructure).forEach((rank) => {
+		// Create rank directory
+		const rankPath = [solutionsPath, rank].join('/');
+		fs.mkdirSync(rankPath, { recursive: true });
+
+		Object.keys(fileStructure[rank]).forEach((fileName) => {
+			const filePath = [rankPath, fileName].join('/');
+
+			// Read existing solution file
+			fs.readFile(filePath, { encoding: 'utf-8'}, (err, data) => {
+				// If there is an error other than the file doesn't exist, throw it
+				if (err && err.code != 'ENOENT') throw err;
+
+				// If current solution does not exist or is different then create/overwrite it respectively
+				if (data != fileStructure[rank][fileName]) {
+					const message = fileName + (err ? ' created.' : ' overwritten.');
+
+					fs.writeFile(filePath, code, 'utf8', (err) => {
+						if (err) throw err;
+
+						console.log(message);
+					});
+				};
+			});
+		});
 	});
+};
 
-	Object.keys(fileStructure[rank]).forEach((fileName) => {
-		const filePath = [solutionsPath, rank, fileName].join('/');
-		const code = fileStructure[rank][fileName];
+const fileStructure = parseFile('./extracted.json');
 
-		fs.writeFile(filePath, code, (err) => {
-			if (!err) console.log(`${fileName} saved.`);
-		})
-	})
-});
+// Change this variable if you wish for you solutions to be stored elsewhere
+const solutionsPath = '../codewars_solutions';
+createFileStructure(solutionsPath, fileStructure);
+
+console.log("Parsing complete.");

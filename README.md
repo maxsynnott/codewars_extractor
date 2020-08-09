@@ -4,8 +4,8 @@
 Example output: https://github.com/maxsynnott/codewars_solutions
 
 Steps:
-1. Visit https://www.codewars.com/users/USERNAME/completed_solutions and scroll down to load all solutions.
-2. Copy and paste the contents on extract.js into your developers console (this will copy a json of all your solutions to your clipboard).
+1. Visit https://www.codewars.com/users/USERNAME/completed_solutions and keep scrolling down until all solutions are loaded.
+2. Copy and paste the contents of extract.js into your developers console (this will copy the solutions to your clipboard).
 3. Completely replace the contents of extracted.json with the contents of your clipboard and in your terminal run ```node parse.js```
 
 **You're done**

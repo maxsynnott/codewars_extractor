@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const solutionsPath = './solutions';
+const solutionsPath = '../codewars_solutions';
 fs.mkdir(solutionsPath, (err) => {
 	if (!err) console.log(`Directory: ${solutionsPath} successfully created.`)
 })

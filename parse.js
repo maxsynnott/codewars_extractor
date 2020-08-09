@@ -1,6 +1,8 @@
+// Change this if you wish to store your solutions elsewhere
+const solutionsPath = '../codewars_solutions';
+
 const fs = require('fs');
 
-const solutionsPath = '../codewars_solutions';
 fs.mkdir(solutionsPath, (err) => {
 	if (!err) console.log(`Directory: ${solutionsPath} successfully created.`)
 })

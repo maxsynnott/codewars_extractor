@@ -77,3 +77,6 @@ const fileStructure = solutionsToFileStructure(solutions);
 const extracted = JSON.stringify(fileStructure);
 
 copyToClipboard(extracted);
+
+// The developer console logs the last line
+fileStructure;

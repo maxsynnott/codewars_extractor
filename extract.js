@@ -37,7 +37,9 @@ const extractSolutions = () => {
 	const solutions = [];
 
 	[...document.querySelectorAll('.list-item.solutions')].forEach((kata) => {
-		const [rank, title] = kata.querySelector('.item-title').innerText.split('\n');
+		const titleDiv = kata.querySelector('.item-title');
+		const rank = titleDiv.querySelector('div').innerText;
+		const title = titleDiv.querySelector('a').innerText;
 
 		[...kata.querySelectorAll('h6 + .markdown')].forEach((solution) => {
 			const language = solution.previousSibling.innerText.slice(0, -1);
